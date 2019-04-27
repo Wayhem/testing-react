@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default () => {
-  const [comment, setComment] = useState("");
+export default ({ hook }) => {
+  const [comment, setComment] = hook;
 
   const handleSubmit = e => {
     e.preventDefault();
+    setComment("");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h4>Add a Comment</h4>
