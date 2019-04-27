@@ -1,10 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as CommentsOperations from "../redux/operations/comments";
 
-export default ({ hook }) => {
+const CommentBox = ({ hook, ...props }) => {
   const [comment, setComment] = hook;
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    const { saveComment } = props;
+
+    saveComment(comment);
     setComment("");
   };
 
@@ -18,3 +24,16 @@ export default ({ hook }) => {
     </form>
   );
 };
+
+const mapStateToProps = state => {
+  return { ...state.comments };
+};
+
+const mapDispatchToProps = dispatch => ({
+  saveComment: comment => dispatch(CommentsOperations.saveComment(comment))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CommentBox);
