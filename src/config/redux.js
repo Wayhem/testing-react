@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import thunk from "redux-thunk";
 
 import rootReducer from "../redux";
+import { PRODUCTION } from "./constants";
 
 process.env.NODE_ENV === `development` && require("axios-response-logger");
 
@@ -17,10 +18,9 @@ const loggerMiddleware = createLogger({
   collapsed: true
 });
 
-const middlewares =
-  process.env.NODE_ENV === "production"
-    ? applyMiddleware(thunk)
-    : applyMiddleware(thunk, loggerMiddleware);
+const middlewares = PRODUCTION
+  ? applyMiddleware(thunk)
+  : applyMiddleware(thunk, loggerMiddleware);
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

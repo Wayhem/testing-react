@@ -2,9 +2,7 @@ import React from "react";
 import CommentBox from "components/CommentBox";
 import CommentList from "components/CommentList";
 import useComment from "../hooks/useComment";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "../config/redux";
+import Root from "../config/Root";
 
 export const AppComponent = () => {
   return (
@@ -17,10 +15,8 @@ export const AppComponent = () => {
 
 export default () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppComponent />
-      </PersistGate>
-    </Provider>
+    <Root>
+      <AppComponent />
+    </Root>
   );
 };

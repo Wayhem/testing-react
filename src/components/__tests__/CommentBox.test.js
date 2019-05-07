@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import CommentBox from "../CommentBox";
 import useComment from "../../hooks/useComment";
+import Root from "../../config/Root";
 
 let wrapped;
 
@@ -13,7 +14,9 @@ function HookWrapper(props) {
 
 beforeEach(() => {
   wrapped = mount(
-    <HookWrapper component={CommentBox} hook={() => useComment("hello")} />
+    <Root>
+      <HookWrapper component={CommentBox} hook={() => useComment("hello")} />
+    </Root>
   );
 });
 
@@ -40,6 +43,7 @@ describe("the textarea", () => {
       .simulate("change", { target: { value: "goodbye" } });
     wrapped.update();
   });
+
   it("text area changes on event", () => {
     expect(wrapped.find("textarea").prop("value")).toEqual("goodbye");
   });
